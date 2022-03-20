@@ -10,6 +10,22 @@ body, ul, h1, h2, h3, h4, p{
   max-width: 750px!important;
 }
 
+/* INFO */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.info div {
+  align-self: start;
+}
+
+.info img {
+  height: 200px;
+} 
+
 
 /* FOOTER */
 
