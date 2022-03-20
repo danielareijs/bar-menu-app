@@ -1,22 +1,33 @@
 import React from 'react'
+import {useNavigate} from 'react-router-dom';
 import {Form, Button} from 'react-bootstrap';
+import { getLoginToken } from '../services/session';
 
 function Login() {
-    function handleLogin(e){
-        e.preventDefault();
+    const navigate = useNavigate();
 
-        const user = {
-            username: e.target.username.value, 
-            password: e.target.password.value
-        }
+    async function handleLogin(e){
+        e.preventDefault();
         
-        fetch(`http://localhost:8080/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
+        try {
+            // 1. Make a POST request to /login in the API
+            const { token } = await getLoginToken({
+              username: e.target.username.value,
+              password: e.target.password.value,
+            });
+      
+            if (!token) {
+              throw new Error('Unsuccessful login');
+            }
+      
+            // 2. Store token in local storage
+            localStorage.setItem('f6-menu-token', token);
+      
+            // 3. Redirect back to feed
+            navigate(-1);
+          } catch (error) {
+            console.log(error);
+          }
     }
 
     return (
