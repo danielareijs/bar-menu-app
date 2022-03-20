@@ -33,7 +33,7 @@ function App() {
           <Route path="/*" element={<Menu />}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/logout" element={<Logout updateToken={updateToken}/>}/>
-          <Route path="/add-item/select-category" element={<AddItem />}/>
+          <Route path="/add-item/select-category/*" element={<AddItem />}/>
         </Routes>
       </div>
       {token && <Footer/>}

@@ -5,10 +5,13 @@ import {getCategories} from '../services/categories';
 // react icons
 import {GoLocation} from 'react-icons/go';
 
+// pages
+import Items from './Items';
+
 function Menu() {
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const activeCategory = useRef('Classic Cocktails')
+  const activeCategory= useRef('Classic Cocktails');
 
   useEffect(() => {
     fetchCategories();
@@ -50,6 +53,7 @@ function Menu() {
           <h1>F6</h1>
           <p><GoLocation /> Frognerveien 6</p>
         </div>
+      </div>
         {loading ? <div>Loading menu...</div> :
           <div className="category-links">
             <h3>Menu</h3>
@@ -63,14 +67,15 @@ function Menu() {
                   key={category.id} 
                   path={`/${categoryPath}`} 
                   element={
-                    <h1>{category.name}</h1>
+                    <Items 
+                    category={category.id} 
+                    />
                   }/>
                   )
                 })}
               </Routes>
             </div>
           }
-      </div>
     </>
   )
 }

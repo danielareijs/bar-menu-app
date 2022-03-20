@@ -11,7 +11,7 @@ function Footer() {
   return (
     <Row className="footer">
         <Col><Link to="/add-item/select-category"><IoMdAddCircleOutline className="icon"/></Link></Col>
-        <Col><Link to="/"><BiDrink className="icon"/></Link></Col>
+        <Col><Link to="/ClassicCocktails"><BiDrink className="icon"/></Link></Col>
         <Col><Link to="/logout"><FiLogOut className="icon"/></Link></Col>
     </Row>
   )
