@@ -1,7 +1,12 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
+export function getDrinkById(id){
+  return fetch(`${API_URL}/drinks/${id}`)
+  .then(res => res.json())
+}
+
 export function getDrinksByCategory(category) {
-  return fetch(`${API_URL}/drinks/${category}`)
+  return fetch(`${API_URL}/${category}/drinks`)
   .then((res) => res.json());
 }
 
@@ -14,4 +19,21 @@ export function createDrink(drink){
     body: JSON.stringify({drink})
   })
   .then((res) => res.json());
+}
+
+export function updateDrink(drink){
+  return fetch(`${API_URL}/drinks/${drink.id}`, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(drink)
+  })
+  .then(res => res.json())
+}
+
+export function deleteDrink(id){
+  return fetch(`${API_URL}/drinks/${id}`, {
+    method: 'DELETE',
+  }).then(res => res.json());
 }

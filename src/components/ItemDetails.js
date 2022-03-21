@@ -16,6 +16,7 @@ function ItemInfo(props) {
   const navigate = useNavigate();
 
   function handleChange(inputValue, field){
+    console.log(inputValue);
     let value = inputValue;
       if(inputValue === 'Available') value = true;
       if(inputValue === 'Unavailable') value = false;
@@ -38,7 +39,7 @@ function ItemInfo(props) {
     
     createDrink(newDrink)
     .then(data => {
-      navigate('/');
+      navigate('/ClassicCocktails');
       notify('Item added successfully.')
     })
     .catch(err => console.log(err));
@@ -87,7 +88,7 @@ function ItemInfo(props) {
 
         <Form.Group>
           <Form.Label>Availability: </Form.Label>
-          <Form.Select>
+          <Form.Select onChange={(e) => handleChange(e.target.value, 'available')}>
             <option>Available</option>
             <option>Unavailable</option>
           </Form.Select>
