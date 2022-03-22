@@ -45,6 +45,7 @@ function ItemDetails(props) {
       notify('error', 'Pick at least one category')
       return
     }
+    
     const newDrink = {
       name: drink.name, 
       price: parseInt(drink.price),
@@ -57,12 +58,11 @@ function ItemDetails(props) {
     .then(data => {
       
       drink.categories.forEach(category => {
-        console.log('category: ', data.id, category)
         addDrinkToCategory(data.id, category)
       })
 
       navigate('/ClassicCocktails');
-      notify('Item added successfully.')
+      notify('success', 'Item added successfully.')
     })
     .catch(err => console.log(err));
   }

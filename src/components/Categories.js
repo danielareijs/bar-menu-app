@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {getDrinks} from '../services/drinks';
 import {Accordion} from 'react-bootstrap';
+
+//Services
 import { removeDrinkFromCategory, removeCategory } from '../services/categories';
-import {notify} from '../services/toastify';
+import { notify } from '../services/toastify';
+import {deleteDrink, getDrinks} from '../services/drinks';
 
 //react icon
 import {IoMdClose} from 'react-icons/io';
@@ -23,15 +25,29 @@ function Categories(props) {
             };
     }, [drinks])
 
-    function handleClick(drink){
-        removeDrinkFromCategory(drink.id, drink.category);
-        notify('success', 'Drink successfully removed from category.')
+    async function handleClick(drink){
+        // const drink_ids = drinks.map(drink => drink.id).filter(id => id === drink.id);
+        // if(drink_ids.length < 2){
+        //     deleteDrink(drink.id)
+        // }
+            await removeDrinkFromCategory(drink.id, drink.category);
+            notify('success', 'Drink successfully removed from category.')
+        
     }
 
     async function handleRemoveCategory(category){
-        await removeCategory(category);
-        notify('success', 'Category successfully deleted.')
-        props.updateCategories();
+        try {
+            const res = await removeCategory(category);
+            console.log(res);
+            if(res.ok){
+                notify('success', 'Category successfully deleted.')
+                props.updateCategories();
+            } else {
+               notify('error', 'Category is not empty');
+            }
+        } catch(error) {
+            console.log(error)
+        } 
     }
     
     function displayCategories(categories){

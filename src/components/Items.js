@@ -29,7 +29,7 @@ function Items(props) {
         }
 
         return (
-            <div key={drink.id} className={drink.available ? `menu-card` : `menu-card unavailable`}>
+            <div key={`${drink.id}-${(Math.random() + 1).toString(36).substring(7)}`} className={drink.available ? `menu-card` : `menu-card unavailable`}>
             <div className="left">
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <h4>{drink.name}</h4> {drink.volume && <p className="mx-2">{drink.volume} </p>}

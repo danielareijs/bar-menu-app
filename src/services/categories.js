@@ -16,7 +16,7 @@ export function createCategory(category){
   .then(res => res.json())
 }
 
-export function removeCategory(category){
+export async function removeCategory(category){
   return fetch(`${API_URL}/categories`, {
     method: 'DELETE',
     headers: {
@@ -24,12 +24,9 @@ export function removeCategory(category){
     },
     body: JSON.stringify({category})
   })
-  .then(res => res.json())
 }
 
 export function removeDrinkFromCategory(drink, category){
-  console.log(drink)
-  // console.log(drink, category)
   return fetch(`${API_URL}/categories/remove-drink`, {
     method: 'DELETE',
     headers: {

@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import {useParams, useNavigate} from 'react-router-dom';
 import {Form} from 'react-bootstrap';
+
+//Services
 import {notify} from '../services/toastify';
 import {getDrinkById, updateDrink, deleteDrink} from '../services/drinks';
+import {removeDrinkFromAllCategories} from '../services/categories';
 
 function EditItem(props) {
     const [drink, setDrink] = useState({});
@@ -41,13 +44,13 @@ function EditItem(props) {
         .catch(err => console.log(err))
     }
 
-    function deleteItem(e){
+    async function deleteItem(e){
         e.preventDefault();
-        console.log('drink id: ', drink.id)
+
         deleteDrink(drink.id)
         .then(data => {
             navigate(`/ClassicCocktails`)
-            notify('Item successfully deleted.');
+            notify('success', 'Item successfully deleted.');
         })
         .catch(err => console.log(err))
     }
