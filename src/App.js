@@ -7,6 +7,7 @@ import Menu from './components/Menu';
 import Logout from './components/Logout';
 import AddItem from './components/AddItem';
 import EditItem from './components/EditItem';
+import CreateCategory from './components/CreateCatgeory';
 import Footer from './components/Footer';
 
 // CSS
@@ -36,6 +37,7 @@ function App() {
           <Route path="/logout" element={<Logout updateToken={updateToken}/>}/>
           <Route path="/add-item/*" element={<AddItem />}/>
           <Route path="/:id/edit" element={<EditItem />} />
+          {/* <Route path="/create-category" element={<CreateCategory />} /> */}
         </Routes>
       </div>
       {token && <Footer/>}

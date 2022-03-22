@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {Form} from 'react-bootstrap';
 import {useNavigate} from 'react-router-dom';
 import {getCategories} from '../services/categories';
 
@@ -30,22 +31,23 @@ function SelectCategory(props) {
 
   return (
     <div>
-      <p>Pick a category or <span 
-      style={{textDecoration: 'underline', 
-      cursor: 'pointer'}} 
-      onClick={() => handleClick()}>add a new category</span>
-      </p>
-      <select 
-      className="form-control" 
-      name="category" 
-      onChange={(e) => handleChange(e)}
-      required>
-          {loading ? <option>Loading...</option> 
-          : categories.map(category => {
-          return <option key={category.id}>{category.name}</option>
-          })}
-      </select>
-      <button onClick={() => navigate(`/add-item/details`)}>Next</button>
+      <Form>
+        <Form.Label>Pick a category or <span 
+          style={{textDecoration: 'underline', 
+          cursor: 'pointer'}} 
+          onClick={() => handleClick()}>add a new category</span>
+        </Form.Label>
+        <Form.Select 
+          name="category" 
+          onChange={(e) => handleChange(e)}
+          required>
+            {loading ? <option>Loading...</option> 
+            : categories.map(category => {
+            return <option key={category.id}>{category.name}</option>
+            })}
+        </Form.Select>
+        <Form.Control type="submit" value="Next" onClick={() => navigate(`/add-item/details`)} />
+      </Form>
     </div>
   )
 }

@@ -14,14 +14,18 @@ function Menu() {
   const activeCategory= useRef('Classic Cocktails');
 
   useEffect(() => {
-    fetchCategories();
+    getCategories()
+    .then(data => {
+      setCategories(data);
+      setLoading(false);
+    })
   }, [])
 
-  async function fetchCategories (){
-    const categories = await getCategories();
-    setCategories(categories);
-    setLoading(false);
-  }
+  // async function fetchCategories (){
+  //   const categories = await getCategories();
+  //   setCategories(categories);
+  //   setLoading(false);
+  // }
 
   function handleActive(category){
     activeCategory.current = category;
@@ -58,6 +62,7 @@ function Menu() {
           <div className="category-links">
             <h3>Menu</h3>
               {displayCategories()}
+              {/* <Link path="/" className="btn">Add new category<IoIosArrowForward /></Link> */}
               <Routes>
                 {categories.map(category => {
                   const categoryPath = category.name.replace(/\s+/g, '');

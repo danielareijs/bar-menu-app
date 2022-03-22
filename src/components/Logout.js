@@ -7,7 +7,7 @@ function Logout(props) {
     useEffect(() => {
         localStorage.removeItem('f6-menu-token');
         props.updateToken(false);
-        navigate('/');
+        navigate('/ClassicCocktails');
     })
 
     return (

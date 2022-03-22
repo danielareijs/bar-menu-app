@@ -3,6 +3,7 @@ import {Routes, Route} from 'react-router-dom';
 
 //pages
 import SelectCategory from './SelectCategory';
+import CreateCategory from './CreateCatgeory';
 import ItemDetails from './ItemDetails';
 
 function AddItem() {
@@ -25,6 +26,7 @@ function AddItem() {
       <h2>AddItem</h2>
       <Routes>
         <Route path="select-category" element={<SelectCategory updateData={updateData}/>}/>
+        <Route path="add-category" element={<CreateCategory updateData={updateData}/>} />
         <Route path="details" element={<ItemDetails udpateData={updateData} category={data.category}/>} />
       </Routes>
     </div>
