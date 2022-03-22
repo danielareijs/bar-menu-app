@@ -1,22 +1,35 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Form} from 'react-bootstrap';
+
+//services
 import {createDrink} from '../services/drinks';
+import {getCategories, addDrinkToCategory} from '../services/categories';
 import {notify} from '../services/toastify';
 
-function ItemInfo(props) {
+function ItemDetails(props) {
+  const [loading, setLoading] = useState(true)
+  const [categories, setCategories] = useState([]);
   const [drink, setDrink] = useState({
     name: '',
+    categories: [],
     price: '',
     ingredients: [],
     volume: '',
     available: true
   })
-  const category = props.category;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getCategories()
+    .then(data => {
+      setCategories(data);
+      setLoading(false);
+    })
+  }, [])
+
+
   function handleChange(inputValue, field){
-    console.log(inputValue);
     let value = inputValue;
       if(inputValue === 'Available') value = true;
       if(inputValue === 'Unavailable') value = false;
@@ -28,28 +41,41 @@ function ItemInfo(props) {
 
   function addItem(e){
     e.preventDefault();
+    if(drink.categories.length < 1){
+      notify('error', 'Pick at least one category')
+      return
+    }
     const newDrink = {
-      category: category,
       name: drink.name, 
       price: parseInt(drink.price),
       ingredients: drink.ingredients.length > 0 ? drink.ingredients.split(', ') : null,
       volume: drink.volume || null,
       available: drink.available
     }
-    
+
     createDrink(newDrink)
     .then(data => {
+      
+      drink.categories.forEach(category => {
+        console.log('category: ', data.id, category)
+        addDrinkToCategory(data.id, category)
+      })
+
       navigate('/ClassicCocktails');
       notify('Item added successfully.')
     })
     .catch(err => console.log(err));
-  
+  }
+
+  function handleCategories(category){
+    drink.categories.push(category);
   }
 
   return (
     <div>
       <h3>ItemInfo</h3>
       <Form onSubmit={(e) => addItem(e)}>
+        
         <Form.Group>
           <Form.Label>Name: </Form.Label>
           <Form.Control 
@@ -57,6 +83,14 @@ function ItemInfo(props) {
           type="text" 
           value={drink.name}
           onChange={(e) => handleChange(e.target.value, 'name')}/>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Category: </Form.Label>
+          {loading ? <p>Loading...</p> 
+            : categories.map(category => {
+            return <Form.Check key={category.id} label={category.name} onClick={(e) => handleCategories(category.id)}/>
+            })}
         </Form.Group>
 
         <Form.Group>
@@ -100,4 +134,4 @@ function ItemInfo(props) {
   )
 }
 
-export default ItemInfo
+export default ItemDetails

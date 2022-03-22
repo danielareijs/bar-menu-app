@@ -1,5 +1,10 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
+export function getDrinks(){
+  return fetch(`${API_URL}/drinks`)
+  .then(res => res.json())
+}
+
 export function getDrinkById(id){
   return fetch(`${API_URL}/drinks/${id}`)
   .then(res => res.json())
@@ -10,7 +15,7 @@ export function getDrinksByCategory(category) {
   .then((res) => res.json());
 }
 
-export function createDrink(drink){
+export function createDrink(drink, categories){
   return fetch(`${API_URL}/drinks`, {
     method: 'POST',
     headers: {

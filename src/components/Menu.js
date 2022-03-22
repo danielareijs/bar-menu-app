@@ -60,7 +60,10 @@ function Menu() {
       </div>
         {loading ? <div>Loading menu...</div> :
           <div className="category-links">
-            <h3>Menu</h3>
+            <div className="d-flex justify-content-between">
+              <h3>Menu</h3>
+              <Link to="/categories">Edit Categories</Link>
+            </div>
               {displayCategories()}
               {/* <Link path="/" className="btn">Add new category<IoIosArrowForward /></Link> */}
               <Routes>

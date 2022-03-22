@@ -10,6 +10,11 @@ body, ul, h1, h2, h3, h4, p{
   max-width: 750px!important;
 }
 
+.btn {
+  text-decoration: underline!important;
+  color: rgb(209, 190, 131)!important;
+}
+
 /* INFO */
 .info {
   display: flex;

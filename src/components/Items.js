@@ -16,6 +16,7 @@ function Items(props) {
 
     async function fetchDrinks(category){
         const drinks = await getDrinksByCategory(category);
+        console.log(drinks)
         setDrinks(drinks);
         setLoading(false);
     }
