@@ -4,7 +4,8 @@ import {Form} from 'react-bootstrap';
 
 //services
 import {createDrink} from '../services/drinks';
-import {getCategories, addDrinkToCategory} from '../services/categories';
+import {getCategories} from '../services/categories';
+import {addDrinkToCategory} from '../services/category_drinks';
 import {notify} from '../services/toastify';
 
 function ItemDetails(props) {

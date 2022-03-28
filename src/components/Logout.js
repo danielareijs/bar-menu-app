@@ -8,7 +8,7 @@ function Logout(props) {
         localStorage.removeItem('f6-menu-token');
         props.updateToken(false);
         navigate('/ClassicCocktails');
-    })
+    }, [])
 
     return (
       <div>

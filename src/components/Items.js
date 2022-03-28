@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Link} from 'react-router-dom';
-import {getDrinksByCategory} from '../services/drinks';
+// import {Link} from 'react-router-dom';
+import {getDrinksByCategory} from '../services/category_drinks';
 
-import {BiEdit} from 'react-icons/bi';
+// import {BiEdit} from 'react-icons/bi';
 
 function Items(props) {
     const [drinks, setDrinks] = useState([]);
@@ -38,7 +38,7 @@ function Items(props) {
                 
             </div>
             <div className="right" style={{alignSelf: 'end'}}> 
-                {token.current && <Link to={`/${drink.id}/edit`} className="edit-item"><BiEdit /></Link>}
+                {/* {token.current && <Link to={`/${drink.id}/edit`} className="edit-item"><BiEdit /></Link>} */}
                 <p>kr {drink.price}</p>
             </div>
             </div>

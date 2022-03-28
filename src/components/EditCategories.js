@@ -21,10 +21,10 @@ function EditCategories() {
 
   return (
     <div>
-      <h2>Edit Categories</h2>
-      <hr />
       <CreateCategory updateCategories={updateCategories}/>
-      <br></br>
+      <br/>
+      <hr />
+      <br/>
       <Categories updateCategories={updateCategories} categories={categories}/>
     </div>
   )

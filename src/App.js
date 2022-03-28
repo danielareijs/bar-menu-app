@@ -5,7 +5,8 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Login from './components/Login';
 import Menu from './components/Menu';
 import Logout from './components/Logout';
-import AddItem from './components/AddItem';
+import ItemDetails from './components/ItemDetails';
+import Edit from './components/Edit';
 import EditItem from './components/EditItem';
 import EditCategories from './components/EditCategories';
 import Footer from './components/Footer';
@@ -34,10 +35,11 @@ function App() {
         <Routes>
           <Route path="/*" element={<Menu />}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/edit/*" element={<Edit />}/>
           <Route path="/logout" element={<Logout updateToken={updateToken}/>}/>
-          <Route path="/add-item/*" element={<AddItem />}/>
+          <Route path="/add-item/" element={<ItemDetails />}/>
           <Route path="/categories" element={<EditCategories />} />
-          <Route path="/:id/edit" element={<EditItem />} />
+          <Route path="/edit/drinks/:id" element={<EditItem />} />
         </Routes>
       </div>
       {token && <Footer/>}

@@ -1,30 +1,43 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
+import Select from 'react-select';
 import {Form} from 'react-bootstrap';
 
 //Services
 import {notify} from '../services/toastify';
 import {getDrinkById, updateDrink, deleteDrink} from '../services/drinks';
-import {removeDrinkFromAllCategories} from '../services/categories';
+// import AccordionCloseButton from './AccordionCloseButton';
 
 function EditItem(props) {
-    const [drink, setDrink] = useState({});
+    const [drink, setDrink] = useState({
+        name: '',
+        price: 0,
+        ingredients: '',
+        volume: '',
+        available: true
+    });
+    const [availability, setAvailability] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
-    const {id} = useParams();
+    const params = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        getDrinkById(id)
-        .then(data => {
-            console.log(data)
-            setDrink(data);
-            setIsLoading(false);
-        })
-    }, []);
+        let isMounted = true;
+            getDrinkById(params.id)
+            .then(data => {
+                if(isMounted){
+                    setDrink(data);
+                    setIsLoading(false);
+                }
+            })
+        return () => {
+            isMounted = false;
+            };
+    }, [params.id]);
 
     function handleChange(e, field){
-        let value = e.target.value;
+        let value = e.target.value
         if(e.target.value === 'Available') value = true;
         if(e.target.value === 'Unavailable') value = false;
 
@@ -35,22 +48,22 @@ function EditItem(props) {
 
     function updateItem(e){
         e.preventDefault();
-
-        updateDrink(drink)
+        const updatedDrink = {...drink, available: availability.value}
+        console.log(updatedDrink)
+        updateDrink(updatedDrink)
         .then(data => {
-            navigate(`/ClassicCocktails`);
-            notify('Item updated successfully');
+            notify('success', 'Item updated successfully');
+            navigate('/edit/drinks')
         })
         .catch(err => console.log(err))
     }
 
-    async function deleteItem(e){
+    function deleteItem(e, drink_id){
         e.preventDefault();
-
-        deleteDrink(drink.id)
+        deleteDrink(drink_id)
         .then(data => {
-            navigate(`/ClassicCocktails`)
             notify('success', 'Item successfully deleted.');
+            navigate('/edit/drinks');
         })
         .catch(err => console.log(err))
     }
@@ -58,9 +71,9 @@ function EditItem(props) {
     return (
 
         <div>
-            <h2>EditItem</h2>
-            {isLoading ? <p>Loading...</p> : 
+            {isLoading ? <p>Loading...</p> :
                 <Form className="edit-form">
+                    <h3>Edit drink</h3> 
                     <Form.Group>
                     <Form.Label>Name: </Form.Label>
                     <Form.Control 
@@ -75,7 +88,7 @@ function EditItem(props) {
                     <Form.Control 
                     name="price" 
                     type="number" 
-                    value={drink.price}
+                    value={drink.price || ''}
                     onChange={(e) => handleChange(e, 'price')}/>
                     </Form.Group>
 
@@ -84,7 +97,7 @@ function EditItem(props) {
                     <Form.Control 
                     name="ingredients" 
                     type="text" 
-                    value={drink.ingredients}
+                    value={drink.ingredients || []}
                     onChange={(e) => handleChange(e, 'ingredients')}/>
                     </Form.Group>
 
@@ -93,20 +106,24 @@ function EditItem(props) {
                     <Form.Control 
                     name="volume" 
                     type="text" 
-                    value={drink.volume}
+                    value={drink.volume || ''}
                     onChange={(e) => handleChange(e, 'volume')}/>
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Label>Availability: </Form.Label>
-                    <Form.Select onChange={(e) => handleChange(e, 'available')}>
+                    <Select 
+                    options={[{value: true, label: 'Available'}, {value: false, label: 'Unavailable'}]} 
+                    onChange={setAvailability}/>
+                    {/* <Form.Select onChange={(e) => handleChange(e, 'available')}>
                         <option>Available</option>
                         <option>Unavailable</option>
-                    </Form.Select>
+                    </Form.Select> */}
                     </Form.Group>
-                    <button className="update-btn" onClick={(e) => updateItem(e)}>Update item</button>
-                    <button className="delete-btn" onClick={(e) => deleteItem(e)}>Delete item</button>
-                </Form>
+                    <button className="update-btn btn" onClick={(e) => updateItem(e)}>Update item</button>
+                    <button className="btn" onClick={() => navigate('/edit/drinks')} >Back</button>
+                    <button className="btn" onClick={(e) => deleteItem(e, drink.id)}>Delete item</button>
+                    </Form>
             }
         </div>
     )
