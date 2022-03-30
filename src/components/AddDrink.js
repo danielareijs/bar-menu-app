@@ -42,6 +42,9 @@ function ItemDetails(props) {
   }
 
   function addItem(){
+    if(drink.name === ''){
+      notify('error', 'Name is required')
+    }
     if(drink.categories.length < 1){
       notify('error', 'Pick at least one category')
       return
@@ -50,7 +53,7 @@ function ItemDetails(props) {
     const newDrink = {
       name: drink.name, 
       price: parseInt(drink.price),
-      ingredients: drink.ingredients.length > 0 ? drink.ingredients.split(', ') : null,
+      ingredients: drink.ingredients || null,
       volume: drink.volume || null,
       available: drink.available
     }
@@ -63,7 +66,7 @@ function ItemDetails(props) {
       })
 
       props.displayDrinks();
-      setDrink({name: '', categories: [], price: '', ingredients: [], volume: '', available: true})
+      setDrink({name: '', categories: [], price: '', ingredients: '', volume: '', available: true})
       document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
       notify('success', 'Item added successfully.')
     })
@@ -87,6 +90,7 @@ function ItemDetails(props) {
           <Form.Control 
           name="name" 
           type="text" 
+          required
           value={drink.name}
           onChange={(e) => handleChange(e.target.value, 'name')}/>
         </Form.Group>
@@ -136,7 +140,6 @@ function ItemDetails(props) {
           </Form.Select>
          </Form.Group>
         <AccordionCloseButton action={() => addItem()}>Add Drink</AccordionCloseButton>
-
       </Form>
 
     </div>

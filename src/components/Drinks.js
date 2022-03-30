@@ -32,15 +32,11 @@ function Drinks(props) {
     function displayDrinks(input, drinks){
         const matches = findMatches(input, drinks)
         return matches.map(drink => {
-            let ingredients = '';
-            if(drink.ingredients){
-                ingredients = drink.ingredients.join(', '); 
-            }
             return (
                 <div key={uuidv4()} className="border-bottom p-3 d-flex justify-content-between align-items-center">
                     <div>
                         <p>{drink.name} {drink.available ? <BsRecordFill style={{color: 'green'}} /> : <BsRecordFill style={{color: 'red' }}/>}</p>
-                        <p><small>{drink.price}kr {ingredients} {drink.volume}</small>
+                        <p><small>{drink.price}kr {drink.ingredients} {drink.volume}</small>
                         </p>
                     </div>
                     <p 

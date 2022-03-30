@@ -98,8 +98,8 @@ function Category(props) {
             isSearchable
             isMulti
             className="my-2"/>
-            <button className="btn main-btn" onClick={addSelectedDrinks}>Add drink(s)</button>
-            <button className="btn main-btn" onClick={() => handleRemoveCategory(category.id)}>Remove Category</button>
+            <button className="btn large-btn" onClick={addSelectedDrinks}>Add drink(s)</button>
+            <button className="btn large-btn" onClick={() => handleRemoveCategory(category.id)}>Remove Category</button>
             </Accordion.Body>
         </Accordion.Item>
     </Accordion>

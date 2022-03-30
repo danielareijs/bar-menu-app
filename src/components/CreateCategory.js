@@ -33,7 +33,7 @@ function CreateCategory(props) {
                     type="text" 
                     required/>
                 </Form.Group>
-                <Form.Control className="btn main-btn" type="submit" value="Add Category"/>
+                <Form.Control className="btn large-btn" type="submit" value="Add Category"/>
             </Form>
         </div>
     )

@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Select from 'react-select';
 
+//services
+import {notify} from '../services/toastify';
 import {getCategories, setMainCategory} from '../services/categories';
 
 function MainCategory(props) {
@@ -19,6 +21,7 @@ function MainCategory(props) {
     function handleMainCategory(){
         setMainCategory(optionCategories, selected)
         props.updateMainCategory(selected.label)
+        notify('success', 'Main category updated')
     }
 
     return (

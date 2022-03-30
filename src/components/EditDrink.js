@@ -4,13 +4,11 @@ import Select from 'react-select';
 import {Form} from 'react-bootstrap';
 
 //icons
-import {IoIosArrowBack} from 'react-icons/io';
 import {RiArrowGoBackLine} from 'react-icons/ri';
 
 //Services
 import {notify} from '../services/toastify';
 import {getDrinkById, updateDrink, deleteDrink} from '../services/drinks';
-// import AccordionCloseButton from './AccordionCloseButton';
 
 function EditItem(props) {
     const [drink, setDrink] = useState({
@@ -129,8 +127,8 @@ function EditItem(props) {
                     required/>
                     </Form.Group>
                     <div>
-                        <button className="main-btn btn" onClick={(e) => updateItem(e)}>Update item</button>
-                        <button className="main-btn btn" onClick={(e) => deleteItem(e, drink.id)}>Delete item</button>
+                        <button className="btn large-btn" onClick={(e) => updateItem(e)}>Update item</button>
+                        <button className="btn large-btn" onClick={(e) => deleteItem(e, drink.id)}>Delete item</button>
                     </div>
                 </Form>
 

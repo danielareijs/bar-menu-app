@@ -1,6 +1,7 @@
 :root {
   --base: rgb(201,190,131);
-  --base-light: rgba(201,190,131,50%)
+  --base-lighten: rgba(201,190,131,50%);
+  --base-darken: rgb(180, 161, 102);
 }
 
 body, ul, h1, h2, h3, h4, p{
@@ -29,13 +30,14 @@ body, ul, h1, h2, h3, h4, p{
   box-shadow: none;
 }
 
-.btn.main-btn {
+.btn.large-btn {
+  margin: 5px 0;
   border: 2px solid var(--base);
   width: 100%;
   box-shadow: 3px 3px 4px rgb(220,220,220);
 }
 
-.main-btn:hover {
+.btn.large-btn:hover {
   box-shadow: inset 1px 1px 5px rgb(220,220,220);
 }
 
@@ -70,7 +72,7 @@ input:focus, select:focus {
 }
 
 .form-check-input:checked {
-  background-color: var(--base-light)!important;
+  background-color: var(--base-lighten)!important;
   border-color: var(--base)!important;
 }
 
@@ -181,7 +183,7 @@ input:focus, select:focus {
 }
 
 .css-1rhbuit-multiValue{
-  background: var(--base-light)!important;
+  background: var(--base-lighten)!important;
 }
 
 
@@ -208,7 +210,7 @@ input:focus, select:focus {
 }
 
 .footer a:hover {
-  color: rgb(180, 161, 102)
+  color: var(--base-darken);
 }
 
 .footer .col {

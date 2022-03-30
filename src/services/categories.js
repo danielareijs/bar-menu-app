@@ -23,14 +23,24 @@ export async function removeCategory(category){
 }
 
 export async function setMainCategory(categories, main){
-  console.log(categories, main)
-  const notMain = categories.filter(category => category.id !== main.id);
-  console.log(main, notMain);
-  // return fetch(`${API_URL}/categories/${main.id}`, {
-  //   method: 'PUT', 
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(main)
-  // })
+  categories
+  .filter(category => category.value !== main.value)
+  .forEach(category => {
+    console.log(category);
+    fetch(`${API_URL}/categories/${category.value}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({main: false})
+    })
+  })
+  console.log(main)
+  return fetch(`${API_URL}/categories/${main.value}`, {
+    method: 'PUT', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({main: true})
+  })
 }

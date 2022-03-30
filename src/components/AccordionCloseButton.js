@@ -6,13 +6,13 @@ function AccordionCloseButton({ children, eventKey, action }) {
     );
 
     function handleClick(){
-        decoratedOnClick();
         action();
+        decoratedOnClick();
     }
   
     return (
       <button
-        className="btn main-btn"
+        className="btn large-btn"
         type="button"
         onClick={handleClick}
       >

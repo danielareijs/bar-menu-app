@@ -31,10 +31,14 @@ function App() {
       let main = categories.find(category => {
         return category.main === true;
       })
+      
       if(!main) {
-        main = categories[0].name.replace(/\s+/g, '')
+        console.log(categories[0])
+        main = categories[0]
       }
-      setMainCategory(main);
+
+      console.log('Main', main)
+      setMainCategory(main.name.replace(/\s+/g, ''));
     })
   }, [])
 

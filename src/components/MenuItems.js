@@ -23,10 +23,6 @@ function Items(props) {
         }
 
         return drinks.map(drink => {
-        let ingredients = '';
-        if(drink.ingredients){
-            ingredients = [...drink.ingredients].join(', ') ;
-        }
 
         return (
             <div key={uuidv4()} className={drink.available ? `menu-card` : `menu-card unavailable`}>
@@ -34,8 +30,8 @@ function Items(props) {
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <h4>{drink.name}</h4>
                 </div>
-                {drink.volume && <p>{drink.volume}</p>}
-                {ingredients && <p><small>{ingredients}</small></p>}
+                {drink.volume && <p><small>{drink.volume}</small></p>}
+                {drink.ingredients && <p><small>{drink.ingredients}</small></p>}
                 
             </div>
             <div className="right" style={{alignSelf: 'end'}}> 
