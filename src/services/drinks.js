@@ -11,7 +11,6 @@ export function getDrinkById(id){
 }
 
 export function createDrink(drink){
-  console.log(drink);
   return fetch(`${API_URL}/drinks`, {
     method: 'POST',
     headers: {
@@ -34,7 +33,6 @@ export function updateDrink(drink){
 }
 
 export function deleteDrink(id){
-  console.log(id)
   return fetch(`${API_URL}/drinks/${id}`, {
     method: 'DELETE',
   }).then(res => res.json());

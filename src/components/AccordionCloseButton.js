@@ -2,7 +2,7 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 function AccordionCloseButton({ children, eventKey, action }) {
     const decoratedOnClick = useAccordionButton(eventKey, () =>
-      console.log('totally custom!'),
+      console.log('close accordion')
     );
 
     function handleClick(){
@@ -12,7 +12,7 @@ function AccordionCloseButton({ children, eventKey, action }) {
   
     return (
       <button
-        className="btn"
+        className="btn main-btn"
         type="button"
         onClick={handleClick}
       >

@@ -7,7 +7,7 @@ function CreateCategory(props) {
 
     function handleClick(e){
         e.preventDefault();
-        const category = {name: e.target.category.value}
+        const category = {name: e.target.category.value, main: false}
 
         createCategory(category)
         .then(data => {
@@ -33,7 +33,7 @@ function CreateCategory(props) {
                     type="text" 
                     required/>
                 </Form.Group>
-                <Form.Control type="submit" value="Add Category"/>
+                <Form.Control className="btn main-btn" type="submit" value="Add Category"/>
             </Form>
         </div>
     )

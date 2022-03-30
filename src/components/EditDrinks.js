@@ -4,7 +4,7 @@ import { Accordion } from 'react-bootstrap';
 import { getDrinks } from '../services/drinks';
 
 //Pages
-import AddItem from './AddItem';
+import AddDrink from './AddDrink';
 import Drinks from './Drinks';
 
 function EditDrinks() {
@@ -24,12 +24,11 @@ function displayDrinks(){
 
   return (
     <div>
-      <hr />
       <Accordion>
           <Accordion.Item eventKey="0">
-          <Accordion.Header><h3>Add new drink</h3></Accordion.Header>
+          <Accordion.Header><p>Add new drink</p></Accordion.Header>
           <Accordion.Body>
-            <AddItem displayDrinks={displayDrinks}/>
+            <AddDrink displayDrinks={displayDrinks}/>
           </Accordion.Body>
           </Accordion.Item>
       </Accordion>

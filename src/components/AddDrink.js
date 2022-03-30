@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-// import {useNavigate} from 'react-router-dom';
 import {Form} from 'react-bootstrap';
 
 //services
@@ -22,7 +21,6 @@ function ItemDetails(props) {
     volume: '',
     available: true
   })
-  // const navigate = useNavigate();
 
   useEffect(() => {
     getCategories()
@@ -131,14 +129,14 @@ function ItemDetails(props) {
         <Form.Group>
           <Form.Label>Availability: </Form.Label>
           <Form.Select 
-          onChange={(e) => handleChange(e.target.value, 'available')}>
+          onChange={(e) => handleChange(e.target.value, 'available')}
+          required>
             <option>Available</option>
             <option>Unavailable</option>
           </Form.Select>
          </Form.Group>
         <AccordionCloseButton action={() => addItem()}>Add Drink</AccordionCloseButton>
 
-         {/* <button>Add Item</button> */}
       </Form>
 
     </div>

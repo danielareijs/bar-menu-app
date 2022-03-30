@@ -3,6 +3,10 @@ import {useNavigate, useParams} from 'react-router-dom';
 import Select from 'react-select';
 import {Form} from 'react-bootstrap';
 
+//icons
+import {IoIosArrowBack} from 'react-icons/io';
+import {RiArrowGoBackLine} from 'react-icons/ri';
+
 //Services
 import {notify} from '../services/toastify';
 import {getDrinkById, updateDrink, deleteDrink} from '../services/drinks';
@@ -16,7 +20,7 @@ function EditItem(props) {
         volume: '',
         available: true
     });
-    const [availability, setAvailability] = useState({});
+    const [availability, setAvailability] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
 
     const params = useParams();
@@ -38,8 +42,6 @@ function EditItem(props) {
 
     function handleChange(e, field){
         let value = e.target.value
-        if(e.target.value === 'Available') value = true;
-        if(e.target.value === 'Unavailable') value = false;
 
         setDrink(drink => {
             return {...drink, [field]: value}
@@ -48,8 +50,12 @@ function EditItem(props) {
 
     function updateItem(e){
         e.preventDefault();
-        const updatedDrink = {...drink, available: availability.value}
-        console.log(updatedDrink)
+
+        let updatedDrink = drink
+        if(availability.value !== undefined){
+            updatedDrink = {...drink, available: availability.value}
+        }
+
         updateDrink(updatedDrink)
         .then(data => {
             notify('success', 'Item updated successfully');
@@ -57,6 +63,7 @@ function EditItem(props) {
         })
         .catch(err => console.log(err))
     }
+
 
     function deleteItem(e, drink_id){
         e.preventDefault();
@@ -73,7 +80,11 @@ function EditItem(props) {
         <div>
             {isLoading ? <p>Loading...</p> :
                 <Form className="edit-form">
-                    <h3>Edit drink</h3> 
+                    <div className="d-flex justify-content-between">
+                        <h3>Edit drink</h3> 
+                        <button className="btn d-flex align-items-center" onClick={() => navigate('/edit/drinks')}><RiArrowGoBackLine /></button>
+                    </div>
+                       
                     <Form.Group>
                     <Form.Label>Name: </Form.Label>
                     <Form.Control 
@@ -114,16 +125,15 @@ function EditItem(props) {
                     <Form.Label>Availability: </Form.Label>
                     <Select 
                     options={[{value: true, label: 'Available'}, {value: false, label: 'Unavailable'}]} 
-                    onChange={setAvailability}/>
-                    {/* <Form.Select onChange={(e) => handleChange(e, 'available')}>
-                        <option>Available</option>
-                        <option>Unavailable</option>
-                    </Form.Select> */}
+                    onChange={setAvailability}
+                    required/>
                     </Form.Group>
-                    <button className="update-btn btn" onClick={(e) => updateItem(e)}>Update item</button>
-                    <button className="btn" onClick={() => navigate('/edit/drinks')} >Back</button>
-                    <button className="btn" onClick={(e) => deleteItem(e, drink.id)}>Delete item</button>
-                    </Form>
+                    <div>
+                        <button className="main-btn btn" onClick={(e) => updateItem(e)}>Update item</button>
+                        <button className="main-btn btn" onClick={(e) => deleteItem(e, drink.id)}>Delete item</button>
+                    </div>
+                </Form>
+
             }
         </div>
     )

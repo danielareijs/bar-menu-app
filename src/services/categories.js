@@ -22,7 +22,15 @@ export async function removeCategory(category){
   })
 }
 
-// export function getCategoryDrinks(){
-//   return fetch(`${API_URL}/category-drinks`)
-//   .then(res => res.json())
-// }
+export async function setMainCategory(categories, main){
+  console.log(categories, main)
+  const notMain = categories.filter(category => category.id !== main.id);
+  console.log(main, notMain);
+  // return fetch(`${API_URL}/categories/${main.id}`, {
+  //   method: 'PUT', 
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(main)
+  // })
+}

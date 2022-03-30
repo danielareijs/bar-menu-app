@@ -1,6 +1,6 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom';
-import {Form, Button} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import { getLoginToken } from '../services/session';
 
 function Login() {
@@ -31,7 +31,7 @@ function Login() {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
+        <div className="d-flex justify-content-center" style={{minHeight: '100vh'}}>
             <Form 
             style={{width: '100%', maxWidth: '400px'}}
             onSubmit={(e) => handleLogin(e)}>
@@ -43,7 +43,7 @@ function Login() {
                     <Form.Label>Password:</Form.Label>
                     <Form.Control type="password" name="password"/>
                 </Form.Group>
-                <Button type="submit">Login</Button>
+                <button className="btn main-btn" type="submit">Login</button>
             </Form>
         </div>
     )

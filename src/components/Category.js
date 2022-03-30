@@ -12,10 +12,6 @@ import { notify } from '../services/toastify';
 //react icon
 import {IoMdClose} from 'react-icons/io';
 
-//pages
-// import AddDrinkToCategory from './AddDrinkToCategory';
-
-
 function Category(props) {
     const [drinks, setDrinks] = useState([]);
     const [optionDrinks, setOptionDrinks] = useState([]);
@@ -33,13 +29,13 @@ function Category(props) {
         .then(data => {
             setDrinks(data)   
         })
+        .catch(err => console.log(err))
     }
-
 
     function getOptionDrinks(){
         getDrinks()
         .then(data => {
-            setOptionDrinks(data.map(drink => ({value: drink.id, label: drink.name}))    
+            setOptionDrinks(data.map(drink => ({value: drink.id, label: `${drink.name} ${drink.volume ? drink.volume : ''}`}))    
             )
         })      
     }
@@ -47,17 +43,15 @@ function Category(props) {
     async function handleClick(drink){
         await removeDrinkFromCategory(drink.id, drink.category);
         getCategoryDrinks();
-        // notify('success', 'Drink successfully removed from category.')
-    
     }
 
     function addSelectedDrinks(){
         selectedDrinks.forEach(drink => {
             addDrinkToCategory(drink.value, category.id)
-            getCategoryDrinks();
-            // notify('success', 'Drink(s) added')
-            selectRef.current.clearValue();
         })
+        getCategoryDrinks();
+        selectRef.current.clearValue();
+        notify('success', 'Drink(s) added')
     }
 
     async function handleRemoveCategory(category){
@@ -75,24 +69,22 @@ function Category(props) {
         } 
     }
 
-    console.log(optionDrinks);
-
 
   return (
     <Accordion key={category.id}>
         <Accordion.Item eventKey="0" className="mt-1">
         <Accordion.Header>{category.name}</Accordion.Header>
         <Accordion.Body>
-            <div className="d-flex justify-content-end">
-                <button className="btn" onClick={() => handleRemoveCategory(category.id)}>Remove Category</button>
-            </div>
             {drinks.length > 0 ? drinks
             .filter(drink => drink.category === category.id)
             .map(drink => {
                 return (
                     <div key={uuidv4()} className="d-flex justify-content-between py-3" style={{borderBottom: '1px solid rgb(230,230,230)'}}>
-                        <p>{drink.name}</p>
-                        <IoMdClose onClick={() => handleClick(drink)}/>
+                        <p>{drink.name} {drink.volume}</p>
+                        <IoMdClose 
+                        style={{cursor: 'pointer'}}
+                        onClick={() => handleClick(drink)}
+                        />
                     </div>
                 )
             }) 
@@ -106,8 +98,8 @@ function Category(props) {
             isSearchable
             isMulti
             className="my-2"/>
-            <button className="btn" onClick={addSelectedDrinks}>Add drink(s)</button>
-            
+            <button className="btn main-btn" onClick={addSelectedDrinks}>Add drink(s)</button>
+            <button className="btn main-btn" onClick={() => handleRemoveCategory(category.id)}>Remove Category</button>
             </Accordion.Body>
         </Accordion.Item>
     </Accordion>

@@ -1,27 +1,27 @@
-import React, {useState, useEffect, useRef} from 'react';
-// import {Link} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {getDrinksByCategory} from '../services/category_drinks';
 
-// import {BiEdit} from 'react-icons/bi';
 
 function Items(props) {
     const [drinks, setDrinks] = useState([]);
     const [loading, setLoading] = useState(true);
-    const token = useRef();
 
     useEffect(() => {
-        token.current = localStorage.getItem('f6-menu-token');
         fetchDrinks(props.category);
     }, [props.category])
 
     async function fetchDrinks(category){
         const drinks = await getDrinksByCategory(category);
-        console.log(drinks)
         setDrinks(drinks);
         setLoading(false);
     }
 
     function displayItems(){
+        if(drinks.length < 1){
+            return <p>No drinks in this category..</p>
+        }
+
         return drinks.map(drink => {
         let ingredients = '';
         if(drink.ingredients){
@@ -29,16 +29,16 @@ function Items(props) {
         }
 
         return (
-            <div key={`${drink.id}-${(Math.random() + 1).toString(36).substring(7)}`} className={drink.available ? `menu-card` : `menu-card unavailable`}>
+            <div key={uuidv4()} className={drink.available ? `menu-card` : `menu-card unavailable`}>
             <div className="left">
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <h4>{drink.name}</h4> {drink.volume && <p className="mx-2">{drink.volume} </p>}
+                    <h4>{drink.name}</h4>
                 </div>
-                {ingredients && <p>{ingredients}</p>}
+                {drink.volume && <p>{drink.volume}</p>}
+                {ingredients && <p><small>{ingredients}</small></p>}
                 
             </div>
             <div className="right" style={{alignSelf: 'end'}}> 
-                {/* {token.current && <Link to={`/${drink.id}/edit`} className="edit-item"><BiEdit /></Link>} */}
                 <p>kr {drink.price}</p>
             </div>
             </div>

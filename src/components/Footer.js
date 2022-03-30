@@ -3,7 +3,6 @@ import {Row, Col} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 //React Icons
-import {IoMdAddCircleOutline} from 'react-icons/io';
 import {BiDrink} from 'react-icons/bi';
 import {FiLogOut} from 'react-icons/fi';
 import {FaRegEdit} from 'react-icons/fa';
@@ -11,9 +10,8 @@ import {FaRegEdit} from 'react-icons/fa';
 function Footer() {
   return (
     <Row className="footer">
-        {/* <Col><Link to="/add-item"><IoMdAddCircleOutline className="icon"/></Link></Col> */}
         <Col><Link to="/edit/drinks"><FaRegEdit className="icon"/></Link></Col>
-        <Col><Link to="/ClassicCocktails"><BiDrink className="icon"/></Link></Col>
+        <Col><Link to="/"><BiDrink className="icon"/></Link></Col>
         <Col><Link to="/logout"><FiLogOut className="icon"/></Link></Col>
     </Row>
   )

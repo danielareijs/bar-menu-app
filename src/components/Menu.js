@@ -1,18 +1,19 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Routes, Route, Link} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Routes, Route, Link, useParams, useNavigate} from 'react-router-dom';
 import {getCategories} from '../services/categories';
 
 // react icons
 import {GoLocation} from 'react-icons/go';
 
 // pages
-import Items from './Items';
+import MenuItems from './MenuItems';
+import BackToTopButton from './BackToTopButton';
 
 function Menu() {
+  const params = useParams();
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
-  const activeCategory= useRef('Classic Cocktails');
-
+  
   useEffect(() => {
     getCategories()
     .then(data => {
@@ -21,29 +22,19 @@ function Menu() {
     })
   }, [])
 
-  // async function fetchCategories (){
-  //   const categories = await getCategories();
-  //   setCategories(categories);
-  //   setLoading(false);
-  // }
-
-  function handleActive(category){
-    activeCategory.current = category;
-  }
 
   function displayCategories(){
     return categories.map(category => {
       const categoryPath = category.name.replace(/\s+/g, '');
-      const classes = category.name == activeCategory.current ? "category-link active" : "category-link";
+      const classes = categoryPath === params['*'] ? "category-btn active" : "category-btn link";
 
       return (
         <Link 
         key={category.id} 
-        to={categoryPath}
-        className={classes} 
-        onClick={(e) => handleActive(category.name)}
-        >
+        to={categoryPath}>
+          <button className={classes}>
           {category.name}
+          </button>
         </Link>
       )
     })
@@ -59,10 +50,11 @@ function Menu() {
         </div>
       </div>
         {loading ? <div>Loading menu...</div> :
-          <div className="category-links">
+          <div className="links position-relative">
               <h3>Menu</h3>
+              <div>
               {displayCategories()}
-              {/* <Link path="/" className="btn">Add new category<IoIosArrowForward /></Link> */}
+              </div>
               <Routes>
                 {categories.map(category => {
                   const categoryPath = category.name.replace(/\s+/g, '');
@@ -72,13 +64,16 @@ function Menu() {
                   key={category.id} 
                   path={`/${categoryPath}`} 
                   element={
-                    <Items 
+                    <MenuItems 
                     category={category.id} 
                     />
                   }/>
                   )
                 })}
               </Routes>
+              <div className="d-flex justify-content-center">
+                <BackToTopButton />
+              </div>
             </div>
           }
     </>

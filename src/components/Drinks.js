@@ -1,17 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
-//services
-import {deleteDrink} from '../services/drinks';
-import {notify} from '../services/toastify';
-
 //icons
 import {BsRecordFill} from 'react-icons/bs';
-
-//pages 
-import EditItem from './EditItem';
+import {AiOutlineEdit} from 'react-icons/ai';
 
 function Drinks(props) {
     const [inputValue, setInputValue] = useState('');
@@ -37,7 +31,6 @@ function Drinks(props) {
 
     function displayDrinks(input, drinks){
         const matches = findMatches(input, drinks)
-        console.log(matches)
         return matches.map(drink => {
             let ingredients = '';
             if(drink.ingredients){
@@ -50,15 +43,16 @@ function Drinks(props) {
                         <p><small>{drink.price}kr {ingredients} {drink.volume}</small>
                         </p>
                     </div>
-                    <button className="btn" onClick={() => navigate(`${drink.id}`)}>Edit</button>
+                    <p 
+                    style={{fontSize: '22px', color: 'rgb(209,190,131)', cursor: 'pointer'}}
+                    onClick={() => navigate(`${drink.id}`)}><AiOutlineEdit /></p>
                 </div>
             )
         })
     }
 
     return (
-
-        <div>
+        <div className="mt-4">
             <Form.Control 
             type="text"
             onChange={(e) => handleChange(e)}

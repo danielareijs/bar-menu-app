@@ -1,31 +1,36 @@
 import React, {useState, useEffect} from 'react';
+
+//services
 import {getCategories} from '../services/categories';
 
 //pages
 import CreateCategory from './CreateCategory';
 import Categories from './Categories';
+import MainCategory from './MainCategory';
 
-function EditCategories() {
+function EditCategories(props) {
   const [categories, setCategories] = useState([]);
+  
 
   useEffect(() => {
-      updateCategories()
+      populateCategories()
   }, [])
 
-  function updateCategories(){
-    getCategories()
+  function populateCategories(){
+    return getCategories()
       .then(data => {
         setCategories(data);
       })
   }
 
+
   return (
     <div>
-      <CreateCategory updateCategories={updateCategories}/>
-      <br/>
-      <hr />
-      <br/>
-      <Categories updateCategories={updateCategories} categories={categories}/>
+      <CreateCategory updateCategories={populateCategories}/>
+      <hr className="my-5"/>
+      <Categories updateCategories={populateCategories} categories={categories}/>
+      <hr className="my-5"/>
+      <MainCategory updateMainCategory={props.updateMainCategory}/>
     </div>
   )
 }
