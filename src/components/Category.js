@@ -45,10 +45,11 @@ function Category(props) {
         getCategoryDrinks();
     }
 
-    function addSelectedDrinks(){
-        selectedDrinks.forEach(drink => {
-            addDrinkToCategory(drink.value, category.id)
+    async function addSelectedDrinks(){
+        const drinkRequests = selectedDrinks.map(async (drink) => {
+            return addDrinkToCategory(drink.value, category.id)
         })
+        await Promise.all(drinkRequests);
         getCategoryDrinks();
         selectRef.current.clearValue();
         notify('success', 'Drink(s) added')

@@ -12,11 +12,11 @@ export function removeDrinkFromCategory(drink, category){
   }
   
   export function addDrinkToCategory(drink, category) {
-    fetch(`${API_URL}/${category}/drinks`, {
+    return fetch(`${API_URL}/${category}/drinks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({drink})
     })
-  }
+  } 

@@ -43,7 +43,7 @@ function Login() {
                     <Form.Label>Password:</Form.Label>
                     <Form.Control type="password" name="password"/>
                 </Form.Group>
-                <button className="btn main-btn" type="submit">Login</button>
+                <button className="btn large-btn" type="submit">Login</button>
             </Form>
         </div>
     )
