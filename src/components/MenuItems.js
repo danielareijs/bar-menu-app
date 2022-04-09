@@ -18,6 +18,7 @@ function Items(props) {
     }
 
     function displayItems(){
+        console.log('DRINKS', drinks)
         if(drinks.length < 1){
             return <p>No drinks in this category..</p>
         }
